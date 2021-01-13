@@ -1,0 +1,20 @@
+{
+    "account":"lindawat6244",
+    "bank":"BCA",
+    "data":[
+      {
+        "date_trans":"2020-10-14",
+        "descriptions":"asd",
+        "type_trans":"CR",
+        "value_trans":"20000",
+        "balance":"20000"
+      },
+      {
+        "date_trans":"2020-10-14",
+        "descriptions":"asd",
+        "type_trans":"CR",
+        "value_trans":"20000",
+        "balance":"20000"
+      }
+    ]
+  }

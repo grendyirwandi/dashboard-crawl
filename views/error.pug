@@ -1,0 +1,7 @@
+extends templates/layout_login
+block content
+    .col-11.col-md-5.col-lg-3.ml-auto.mr-auto
+        .row
+            .col-12.border.my-5.p-4.bg-white.box.text-center
+                h2 #{errorCode||'404'}
+                small(class="font-weight-bold") #{detail||'PAGES NOT FOUND'}

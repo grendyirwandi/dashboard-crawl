@@ -1,0 +1,117 @@
+extends templates/head_dash.pug
+block content
+    body(class="hold-transition sidebar-mini sidebar-collapse")
+        div(class="wrapper")
+            nav(class="main-header navbar navbar-expand navbar-white navbar-light")
+                ul(class="navbar-nav")
+                    li(class="nav-item")
+                        a(class="nav-link" data-widget="pushmenu" href="#" role="button")
+                            i(class="fas fa-bars")
+                    li(class="nav-item d-none d-sm-inline-block")
+                        a(href="/home" class="nav-link") Welcome, 
+                            b #{data.username}
+                ul(class="navbar-nav ml-auto")
+                    li(class="nav-item")
+                        a(class="nav-link" href="/logout")
+                            i(class="fas fa-power-off")
+                    li(class="nav-item")
+                        a(class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button")
+                            i(class="fas fa-th-large")
+            aside(class="main-sidebar sidebar-dark-primary elevation-4")
+                a(href="/home" class="brand-link")
+                    img(src="/assets/adminlte/dist/img/intama_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8")
+                    span(class="brand-text font-weight-light") Dashboard
+                include sidebar.pug
+            div(class="content-wrapper")
+                section(class="content pt-2")
+                    div(class="container-fluid")
+                        div(class="row")
+                            div(class="col-12")
+                                div(class="card")
+                                    div(class="card-header")
+                                        div(class="row")
+                                            div(class="col-6")
+                                                if logId
+                                                    if logId.name_account
+                                                        h3(class="card-title mt-2") Mutation Account : #{logId.name_account}
+                                            div(class="col-6")
+                                                div(class="form-group float-right")
+                                                    form(action="/logs-between/"+logId.id_account, method="post")
+                                                        div(class="input-group")
+                                                            div(class="input-group-prepend")
+                                                                span(class="input-group-text")
+                                                                    i(class="far fa-calendar-alt")
+                                                                input#reservation(type="text" class="form-control d-inline mr-2" name="range")
+                                                            button(type="submit" class="btn btn-primary d-inline") Submit
+                                    div(class="card-body")
+                                        table#example1(class="table table-hover")
+                                            thead
+                                                tr
+                                                    th No.
+                                                    th Date Trans
+                                                    th Description
+                                                    th Value Trans
+                                                    th Type Trans
+                                                    th Balance
+                                            tbody
+                                                if datas != 0
+                                                    - function convRPLogs(angka, prefix='Rp. ') { var number_string = angka.toString().replace(/[^,\d]/g, ''), split = number_string.split(','), sisa = split[0].length % 3, rupiah = split[0].substr(0, sisa), ribuan = split[0].substr(sisa).match(/\d{3}/gi); if(ribuan){ separator = sisa ? '.' : ''; rupiah += separator + ribuan.join('.'); } rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah; return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : ''); }
+                                                    - function timeConverter(UNIX_timestamp){ var a = new Date(UNIX_timestamp * 1000);  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];  var year = a.getFullYear();  var month = months[a.getMonth()];  var date = a.getDate();  var hour = a.getHours();  var min = a.getMinutes();  var sec = a.getSeconds();  var time = date + ' ' + month + ' ' + year + ' ' + hour + ':' + min + ':' + sec ; return time;} console.log(timeConverter(0));
+                                                    each d, index in datas
+                                                        tr
+                                                            td= index +1
+                                                            td= d['tbl_mutasi']['date_trans']
+                                                            td= d['tbl_mutasi']['description']
+                                                            td= convRPLogs(parseInt(d['tbl_mutasi']['value_trans']))
+                                                            td= d['tbl_mutasi']['type_trans']
+                                                            td= convRPLogs(parseInt(d['tbl_mutasi']['balance']))
+                                                            //- td= timeConverter(d['tbl_mutasi']['createdAt'])
+                                div(id="error")
+                            div(class="col-6" id="logs")
+            footer(class="main-footer")
+                div(class="float-right d-none d-sm-block")
+                    b Version
+                    |  1.0
+                strong
+                    | Copyright © 
+                    a(href="http://intama.info") Intama.info
+                    
+            aside(class="control-sidebar control-sidebar-dark")
+        script(src="/assets/adminlte/plugins/jquery/jquery.min.js")
+        script(src="/assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")
+        script(src="/assets/adminlte/plugins/datatables/jquery.dataTables.min.js")
+        script(src="/assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")
+        script(src="/assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js")
+        script(src="/assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")
+        script(src="/assets/adminlte/dist/js/adminlte.min.js")
+        script(src="/assets/adminlte/plugins/moment/moment.min.js")
+        script(src="/assets/adminlte/plugins/daterangepicker/daterangepicker.js")
+        script(src="/assets/adminlte/dist/js/demo.js")
+        script.
+            $(function () {
+            $("#example1").DataTable({
+            //- aLengthMenu: [
+            //- [25, 50, 100, 200, -1],
+            //- [25, 50, 100, 200, "All"]
+            //- ],
+            //- iDisplayLength: -1
+            responsive: true,
+            autoWidth: false,
+            aaSorting: [],
+            bInfo : false,
+            language: {
+                "search": "_INPUT_",            // Removes the 'Search' field label
+                "searchPlaceholder": "Search"   // Placeholder for the search box
+            },
+            });
+            $("#example2").DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            });
+            $('#reservation').daterangepicker()
+            });

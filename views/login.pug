@@ -1,0 +1,35 @@
+extends templates/head_login.pug
+block content
+    body.hold-transition.login-page
+        .login-box
+            .card
+                .card-body.login-card-body
+                    h4.login-box-msg 
+                        b Login
+                    form(action='auth' method='post')
+                        if error
+                            .input-group
+                                small.alert.alert-danger.w-100.p-2(role='alert')
+                                    | #{error||'Login error !'}
+
+                        .input-group.mb-3
+                            input.form-control(type='text' placeholder='Username', name="username")
+                            .input-group-append
+                                .input-group-text
+                                    span.fas.fa-user
+                        .input-group.mb-3
+                            input.form-control(type='password' placeholder='Password', name="password")
+                            .input-group-append
+                                .input-group-text
+                                    span.fas.fa-lock
+                        .row
+                            .col-8
+                            // /.col
+                            .col-4
+                                button.btn.btn-primary.btn-block(type='submit') Login
+        // jQuery
+        script(src='/assets/adminlte/plugins/jquery/jquery.min.js')
+        // Bootstrap 4
+        script(src='/assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js')
+        // AdminLTE App
+        script(src='/assets/adminlte/dist/js/adminlte.min.js')

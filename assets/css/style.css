@@ -1,0 +1,36 @@
+body {
+    background-color: #E8E8E8;
+}
+
+.box {
+    box-shadow: 6px 6px 5px #aaaaaa;
+    border-radius: 10px;
+}
+
+.boxhome {
+    box-shadow: 6px 6px 5px #aaaaaa;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.boxhome table thead {
+    font-size: 13px;
+}
+
+.boxhome table tbody {
+    font-size: 12px;
+}
+
+.dt-buttons {
+    left: 10px;
+}
+th, td{ 
+    font-size: 12px; 
+}
+.btn-kcl{
+    font-size: 10px;
+    width: 35px;
+}
+.logs{
+    font-size: 13px;
+}

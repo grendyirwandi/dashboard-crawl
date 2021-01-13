@@ -1,0 +1,109 @@
+extends templates/head_dash.pug
+block content
+    body(class="hold-transition sidebar-mini sidebar-collapse")
+        div(class="wrapper")
+            nav(class="main-header navbar navbar-expand navbar-white navbar-light")
+                ul(class="navbar-nav")
+                    li(class="nav-item")
+                        a(class="nav-link" data-widget="pushmenu" href="#" role="button")
+                            i(class="fas fa-bars")
+                    li(class="nav-item d-none d-sm-inline-block")
+                        a(href="/home" class="nav-link") Welcome, 
+                            b #{data.username}
+                ul(class="navbar-nav ml-auto")
+                    li(class="nav-item")
+                        a(class="nav-link" href="/logout")
+                            i(class="fas fa-power-off")
+                    li(class="nav-item")
+                        a(class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button")
+                            i(class="fas fa-th-large")
+            aside(class="main-sidebar sidebar-dark-primary elevation-4")
+                a(href="/home" class="brand-link")
+                    img(src="/assets/adminlte/dist/img/intama_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8")
+                    span(class="brand-text font-weight-light") Dashboard
+                include sidebar.pug
+            div(class="content-wrapper")
+                section(class="content pt-2")
+                    div(class="container-fluid konten")
+                        div(class="row")
+                            div(class="col-12")
+                                if errorTrans
+                                    div(class="alert alert-danger alert-dismissible fade show" role="alert")
+                                        strong #{errorTrans}
+                                        button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                                            span(aria-hidden="true") ×
+                                if successTrans
+                                    div(class="alert alert-success alert-dismissible fade show" role="alert")
+                                        strong #{successTrans}
+                                        button(type="button" class="close" data-dismiss="alert" aria-label="Close")
+                                            span(aria-hidden="true") ×
+                                div(class="card")
+                                    form(action="/go-transfer" method="post")
+                                        div(class="card-header")
+                                            h2(class="card-title") Transfer Action
+                                        div(class="card-body transaction")
+                                            div(class="row")
+                                                div(class="col-md-3")
+                                                    div(class="form-group")
+                                                        label Dari Rekening
+                                                        select(class="form-control" name="udid" required)
+                                                            each da in datas
+                                                                option(value=da.udid) #{da.username} - #{da.rekening} - #{da.bank}
+                                                div(class="col-md-3")
+                                                    div(class="form-group")
+                                                        label Ke Rekening
+                                                        input(type="number" class="form-control" placeholder="Rekening" name="rekening" required)
+                                                div(class="col-md-3")
+                                                    div(class="form-group")
+                                                        label Nominal
+                                                        input(type="text" class="form-control" placeholder="Nominal - *10000" onkeyup="convRP(this)" name="nominal" required)
+                                                div(class="col-md-3")
+                                                    div(class="form-group")
+                                                        button(type="button" class="btn btn-primary" id="tmbahform")
+                                                            i(class="fas fa-plus")
+                                                        button(type="button" class="btn btn-danger ml-2" id="kurangform")
+                                                            i(class="fas fa-minus")
+                                        div(class="card-footer")
+                                            button(type="submit" class="btn btn-primary float-right") Submit
+                                div(id="error")
+                            div(class="col-6" id="logs")
+            footer(class="main-footer")
+                div(class="float-right d-none d-sm-block")
+                    b Version
+                    |  1.0
+                strong
+                    | Copyright © 
+                    a(href="http://intama.info") Intama.info
+                    
+            aside(class="control-sidebar control-sidebar-dark")
+        script(src="/assets/adminlte/plugins/jquery/jquery.js")
+        script(src="/assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js")
+        script(src="/assets/adminlte/plugins/datatables/jquery.dataTables.min.js")
+        script(src="/assets/adminlte/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js")
+        script(src="/assets/adminlte/plugins/datatables-responsive/js/dataTables.responsive.min.js")
+        script(src="/assets/adminlte/plugins/datatables-responsive/js/responsive.bootstrap4.min.js")
+        script(src="/assets/adminlte/dist/js/adminlte.min.js")
+        script(src="/assets/adminlte/dist/js/demo.js")
+        script(src="/assets/js/scriptTrans.js")
+        script.
+            var datas = '!{JSON.stringify(datas)}';
+            $(function () {
+            $("#example1").DataTable({
+            responsive: true,
+            autoWidth: false,
+            bInfo : false,
+            language: {
+                "search": "_INPUT_",            // Removes the 'Search' field label
+                "searchPlaceholder": "Search"   // Placeholder for the search box
+            },
+            });
+            $("#example2").DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+            });
+            });

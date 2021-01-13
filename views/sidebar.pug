@@ -1,0 +1,32 @@
+div(class="sidebar")
+    nav(class="mt-2")
+        ul(class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false")
+            li(class="nav-item")
+                a(href="/home" class="nav-link")
+                    i(class="nav-icon fas fa-server")
+                    p
+                        | Accounts
+            li(class="nav-item")
+                a(href="/notification" class="nav-link")
+                    i(class="nav-icon fas fa-server")
+                    p
+                        | Notification Accounts
+            li(class="nav-item has-treeview")
+                a(href="#" class="nav-link")
+                    i(class="nav-icon fas fa-file-import")
+                    p
+                        | Transfer
+                        i(class="right fas fa-angle-left")
+                ul(class="nav nav-treeview" style="display: none;")
+                    li(class="nav-item")
+                        a(href="/transfer" class="nav-link")
+                            i(class="fas fa-chevron-right ml-3 nav-icon")
+                            p Logs
+                    li(class="nav-item")
+                        a(href="/device" class="nav-link")
+                            i(class="fas fa-chevron-right ml-3 nav-icon")
+                            p Device
+                    li(class="nav-item")
+                        a(href="/go-transfer" class="nav-link")
+                            i(class="fas fa-chevron-right ml-3 nav-icon")
+                            p Transfer Action

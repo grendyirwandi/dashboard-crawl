@@ -1,0 +1,41 @@
+extends templates/layout
+block content
+    .col-12.text-center.py-4.font-weight-bold
+        span(style="font-size:25px") Bank Account Entries
+        br
+        small Filter data based on date
+    .col-11.px-4.pt-1.pb-4.bg-light.ml-auto.mr-auto.boxhome
+        .row
+            .col-12.col-md-6.my-2
+                .row
+                    .col-12.col-md-6.text-right.text-md-left
+                        span From Date &nbsp;
+                            i.fas.fa-calendar-alt &nbsp;&nbsp;
+                        input(type="date", name="from", id="fromDate", class="p-1 border", required)
+                    .col-12.col-md-6.text-right.text-md-left
+                        span &nbsp;&nbsp; To Date &nbsp;
+                            i.fas.fa-calendar-times &nbsp;&nbsp;
+                        input(type="date", name="to", id="toDate", class="p-1 border", required, disabled)
+            .col-12.col-md-6.text-right.my-2
+                a(href="/home", class="btn btn-sm btn-success mx-1", target="_blank")
+                    | Realtime data &nbsp;
+                    i.fas.fa-chart-line
+                a(href="/logout", class="btn btn-sm btn-success")
+                    | Logout &nbsp;
+                    i.fas.fa-sign-out-alt
+            .col-12#loading.text-center.py-5
+                .spinner-border(role='status')
+                    span.sr-only Loading...
+            .col-12.mt-2
+                table#filter.display(style='width:100%')
+                    thead
+                        tr
+                            th No
+                            th Name
+                            th Date Transaction
+                            th Description
+                            th Bank
+                            th Value Transaction
+                            th Type Transaction
+                            th Balance
+                    tbody(id="filtercontent")
